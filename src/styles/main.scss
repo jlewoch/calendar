@@ -1,6 +1,18 @@
 * {
   box-sizing: border-box;
 }
+
+.option,
+.event,
+button,
+a {
+  &:hover:not([disabled='']) {
+    cursor: pointer;
+  }
+  &[disabled='true'] {
+    cursor: not-allowed;
+  }
+}
 body {
   margin: 0;
   height: 100vh;
@@ -82,4 +94,22 @@ body {
 }
 .other-month {
   color: lightgray;
+}
+.contextMenu {
+  position: absolute;
+  border-radius: 6px;
+  background: #e7f0f8;
+  .option {
+    padding: 0.25em;
+    &:hover {
+      color: white;
+      background-color: #2f74b5;
+      &.first {
+        border-radius: 6px 6px 0 0;
+      }
+      &.last {
+        border-radius: 0 0 6px 6px;
+      }
+    }
+  }
 }

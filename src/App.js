@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import MonthDisplay from './views/month/MonthDisplay';
 import Navigator from './components/Navigator';
+import ContextMenuWrapper from './components/contextmenu/ContextMenuWrapper';
 export default class App extends Component {
   state = {
     display: { year: moment().format('YYYY'), month: moment().format('MMMM') },
@@ -31,13 +32,12 @@ export default class App extends Component {
   render() {
     const { firstWeek, today, display } = this.state;
     return (
-      <div className="calendar">
-        <Navigator
-          display={display}
-          navigationHandler={this.navigationHandler}
-        />
-        <MonthDisplay display={display} firstWeek={firstWeek} today={today} />
-      </div>
+      <ContextMenuWrapper>
+        <div className="calendar">
+          <Navigator year={year} />
+          <MonthDisplay firstWeek={firstWeek} today={this.today} />
+        </div>
+      </ContextMenuWrapper>
     );
   }
 }
