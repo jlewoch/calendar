@@ -12,7 +12,7 @@ const DayLabels = () => {
         'Friday',
         'Saturday'
       ].map(day => (
-        <div className="cell">
+        <div key={day} className="cell">
           <h6>{day}</h6>
         </div>
       ))}
