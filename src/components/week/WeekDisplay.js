@@ -1,19 +1,17 @@
 import React from 'react';
-import Day from './Day';
+import { Day } from '../Day';
 import moment from 'moment';
 import EventsList from './EventsList';
-const days = [0, 1, 2, 3, 4, 5, 6];
-const Week = ({ week, today, display }) => {
+const WeekDisplay = ({ week, days, year }) => {
   return (
     <div className="container week">
       {days.map((day, idx) => (
         <Day
           key={idx}
-          today={today}
           day={moment()
+            .year(year)
             .week(week)
-            .day(day)}
-          display={display}
+            .weekday(day)}
         >
           <EventsList />
         </Day>
@@ -22,4 +20,4 @@ const Week = ({ week, today, display }) => {
   );
 };
 
-export default Week;
+export default WeekDisplay;

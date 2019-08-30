@@ -1,85 +1,147 @@
 * {
   box-sizing: border-box;
 }
+// generic heigh styles
 body {
   margin: 0;
   height: 100vh;
 }
-#root {
-  height: 100%;
-}
-.app {
-  height: 100%;
-}
+#root,
+.app,
 .calendar {
-  padding: 1em;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
-
   height: 100%;
 }
 
-.container {
-  display: grid;
-
-  grid-template-columns: repeat(7, 1fr);
-  &.nav {
-    padding: 1em;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    align-items: flex-start;
-  }
-  .controls {
-    justify-items: center;
-    align-items: center;
-    grid-template-columns: repeat(5, 1fr);
-    h2 {
-      margin: 0;
-    }
-  }
-  .cell {
-    &.today {
-      .label {
-        color: #2f74b5;
-        background: #f0eded;
-      }
-      background: #e7f0f8;
-    }
-    border-bottom: solid thin black;
-    border-right: solid thin black;
-
-    .label,
-    .events {
-      display: grid;
-      gap: 0.25em;
-      padding: 0.25em;
-    }
-    .label {
-      background: #e0e0e0;
-      border-bottom: solid thin black;
-    }
-    h6 {
-      font-size: 1em;
-      text-align: center;
-      margin: 0;
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
-    }
-  }
-  &.month {
-    border-left: solid thin black;
-    border-top: solid thin black;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto repeat(5, 1fr);
-  }
+// border left
+.bl {
+  border-left: solid thin black;
 }
-
+// border top
+.bt {
+  border-top: solid thin black;
+}
+// border bottom
+.bb {
+  border-bottom: solid thin black;
+}
+// border right
+.br {
+  border-right: solid thin black;
+}
+// generic label style
+.label {
+  padding: 0.25em;
+}
+// top labels labels
+h6.label {
+  font-size: 1em;
+  text-align: center;
+  margin: 0;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+// event styles
 .event {
   border-radius: 8px;
   padding: 0.15em;
   background: #2f74b5;
 }
+// hides other month numbers
 .other-month {
   color: lightgray;
+}
+// hover styles
+.option,
+.event,
+button,
+a {
+  &:hover:not([disabled='']) {
+    cursor: pointer;
+  }
+  &[disabled='true'] {
+    cursor: not-allowed;
+  }
+}
+// navigation section styles
+.nav {
+  padding: 1em;
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // date label spacing from buttons
+    .label {
+      margin: 0.5em;
+    }
+  }
+}
+// all containers are grids
+.container {
+  display: grid;
+
+  &.calendar {
+    padding: 1em;
+  }
+  // colums for each day
+  &.week {
+    grid-template-columns: repeat(7, minmax(100px, 1fr));
+  }
+
+  // forses top to take up minimum space and the rest is filled with secon area
+  &.with-header {
+    grid-template-rows: auto 1fr;
+  }
+
+  // indevidual cell styles
+  .cell {
+    // changes colors for todays date
+    &.today {
+      background: #e7f0f8;
+      .label {
+        color: #2f74b5;
+        background: #f0eded;
+      }
+    }
+  }
+  &.month {
+    .week {
+      grid-template-rows: minmax(100px, 1fr);
+    }
+    .label {
+      background: #e0e0e0;
+    }
+  }
+}
+// context menu
+.contextMenu {
+  position: absolute;
+  border-radius: 6px;
+  background: #e7f0f8;
+  // individual option settings
+  .option {
+    padding: 0.25em 0.5em;
+    // padding fix for bottom
+    &.last {
+      padding-bottom: 0.5em;
+    }
+    // padding fix for top
+
+    &.first {
+      padding-top: 0.5em;
+    }
+    &:hover {
+      color: white;
+      background-color: #2f74b5;
+      // ensures top is rounded when hovering
+      &.first {
+        padding-top: 0.5em;
+        border-radius: 6px 6px 0 0;
+      }
+      // ensures bottom is rounded when hovering
+      &.last {
+        padding-bottom: 0.5em;
+        border-radius: 0 0 6px 6px;
+      }
+    }
+  }
 }

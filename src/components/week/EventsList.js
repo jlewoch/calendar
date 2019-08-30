@@ -4,9 +4,7 @@ const EventsList = ({ events = [] }) => {
   return (
     <div className="events">
       {events.map((event, idx) => (
-        <div key={idx} className="event">
-          {event}
-        </div>
+        <Event event={event} />
       ))}
     </div>
   );
