@@ -7,16 +7,10 @@ const MonthDisplay = ({ firstWeek, weeks, days }) => {
   const weeksArr = new Array(weeks).fill();
   return (
     <div className="container with-header">
-      <TopLabels
-        dataArr={days.map(i =>
-          moment()
-            .day(i)
-            .format('dddd')
-        )}
-      />
+      <TopLabels dataArr={moment.weekdays()} />
 
       <div className="container month">
-        {weeksArr.map((weekNum, idx) => (
+        {weeksArr.map((notNeeded, idx) => (
           <Week key={idx} week={firstWeek + idx} />
         ))}
       </div>

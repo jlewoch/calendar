@@ -15,34 +15,43 @@ export default class ContextMenuWrapper extends Component {
   // opens context menu on cursor location
   _handleContextMenu = e => {
     e.preventDefault();
-    e.stopPropagation();
+    // menu is the contextmenu element
     const menu = this.menu.current;
 
+    // get height and width of context menu
     const height = menu.clientHeight;
     const width = menu.clientWidth;
 
+    // get x and y where user clicked on the page
     let top = e.pageY;
     let left = e.pageX;
 
+    // get bottom value base on height of menu and where user clicked
     const bottom = height + e.clientY;
+
+    // get right value base on width of menu and where user clicked
     const right = width + e.clientX;
 
-    // offset menu when opened too close to the bottom
+    // offset menu when opened if it is too close to the bottom
     if (bottom > window.innerHeight) {
       top -= height;
     }
+
+    // offset menu when opened if it is too close to the right
     if (right > window.innerHeight) {
       left -= width;
     }
-    console.log('top :', top);
+
+    // setting to the origional event target to pass into option selected click event
+    this.target = e.target;
+
     this.setState({
       visible: true,
       top,
       left
     });
-    this.target = e;
   };
-
+  _selectHandler = e => {};
   // hide menu when users scrolling
   _handleScroll = () => this.setState({ visible: false });
 
@@ -75,26 +84,32 @@ export default class ContextMenuWrapper extends Component {
         >
           {this.props.options.map((option, idx) => (
             <MenuItem
-              key={idx}
               {...option}
+              key={idx}
+              click={e => option.click(this.target)}
               // passed to ensure styling for top and bottom when hovering
               last={this.props.options.length - 1 === idx}
               first={idx === 0}
-              // passed so onclick action can return origional target
-              target={this.target}
             />
           ))}
         </div>
-
         {this.props.children}
       </div>
     );
   }
 }
+
+// set default props
 ContextMenuWrapper.defaultProps = {
   options: [
-    { label: 'Option 1', click: e => console.log('Option 1 Selected', e) },
-    { label: 'Option 2', click: e => console.log('Option 2 Selected', e) },
+    {
+      label: 'Option 1',
+      click: e => console.log('Option 1 Selected', e)
+    },
+    {
+      label: 'Option 2',
+      click: e => console.log('Option 2 Selected', e.target)
+    },
     { label: 'Option 3', click: e => console.log('Option 3 Selected', e) }
   ]
 };

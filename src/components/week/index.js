@@ -3,7 +3,8 @@ import WeekDisplay from './WeekDisplay';
 const mapStateToProps = ({ calendar }) => ({
   firstWeek: calendar.viewing.firstWeek,
   days: calendar.daysOfWeek,
-  year: calendar.viewing.year
+  year: calendar.viewing.year,
+  events: calendar.events
 });
 
 const mapDispatchToProps = dispatch => ({});

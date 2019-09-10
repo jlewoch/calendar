@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
 }
-// generic heigh styles
+// generic height
 body {
   margin: 0;
   height: 100vh;
@@ -28,7 +28,7 @@ body {
 .br {
   border-right: solid thin black;
 }
-// generic label style
+// generic label
 .label {
   padding: 0.25em;
 }
@@ -40,17 +40,20 @@ h6.label {
   padding-top: 0.25em;
   padding-bottom: 0.25em;
 }
-// event styles
+// event items
 .event {
   border-radius: 8px;
-  padding: 0.15em;
   background: #2f74b5;
+  padding: 0.25em;
+  color: white;
+  margin: 0.25em;
 }
+
 // hides other month numbers
 .other-month {
   color: lightgray;
 }
-// hover styles
+// generic hover
 .option,
 .event,
 button,
@@ -62,7 +65,7 @@ a {
     cursor: not-allowed;
   }
 }
-// navigation section styles
+// navigation section
 .nav {
   padding: 1em;
   .controls {
@@ -78,6 +81,10 @@ a {
 // all containers are grids
 .container {
   display: grid;
+  &.events {
+    align-content: flex-start;
+    min-height: 100px;
+  }
 
   &.calendar {
     padding: 1em;
@@ -89,10 +96,11 @@ a {
 
   // forses top to take up minimum space and the rest is filled with secon area
   &.with-header {
+    align-items: flex-start;
     grid-template-rows: auto 1fr;
   }
 
-  // indevidual cell styles
+  // indevidual cells
   .cell {
     // changes colors for todays date
     &.today {
@@ -104,9 +112,6 @@ a {
     }
   }
   &.month {
-    .week {
-      grid-template-rows: minmax(100px, 1fr);
-    }
     .label {
       background: #e0e0e0;
     }

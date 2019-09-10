@@ -1,12 +1,79 @@
 import { createReducer } from 'redux-act';
 import * as types from './actionTypes';
 import moment from 'moment';
-
+const current = moment();
 const initialState = {
   daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
-  today: moment().format('LL'),
-  events: {},
-  viewing: { year: 2019, month: 0, firstWeek: 1, weeks: 5 }
+  today: current.format('LL'),
+  events: [
+    {
+      id: 1,
+      title: 'Teal',
+      startDate: '9/1/2019',
+      endDate: '9/3/2019'
+    },
+
+    {
+      id: 3,
+      title: 'Khaki',
+      startDate: '9/8/2019',
+      endDate: '9/8/2019'
+    },
+    {
+      id: 4,
+      title: 'Blue',
+      startDate: '9/3/2019',
+      endDate: '9/6/2019'
+    },
+    {
+      id: 5,
+      title: 'Teal',
+      startDate: '9/6/2019',
+      endDate: '9/7/2019'
+    },
+    {
+      id: 6,
+      title: 'Puce',
+      startDate: '9/8/2019',
+      endDate: '9/8/2019'
+    },
+    {
+      id: 7,
+      title: 'Crimson',
+      startDate: '9/25/2019',
+      endDate: '9/26/2019'
+    },
+    {
+      id: 8,
+      title: 'Yellow',
+      startDate: '9/18/2019',
+      endDate: '9/18/2019'
+    },
+    {
+      id: 9,
+      title: 'Violet',
+      startDate: '9/5/2019',
+      endDate: '9/5/2019'
+    },
+    {
+      id: 10,
+      title: 'Turquoise',
+      startDate: '9/1/2019',
+      endDate: '9/2/2019'
+    },
+    {
+      id: 2,
+      title: 'Puce',
+      startDate: '9/3/2019',
+      endDate: '9/3/2019'
+    }
+  ],
+  viewing: {
+    year: current.year(),
+    month: current.month(),
+    firstWeek: current.startOf('month').week(),
+    weeks: calculateWeeks(current.month(), current.year())
+  }
 };
 
 const calendar = createReducer(
@@ -26,7 +93,7 @@ const calendar = createReducer(
 );
 export default calendar;
 
-const calculateWeeks = (month, year) => {
+function calculateWeeks(month, year) {
   // create moment instance for specified month and year
   const momentObj = moment()
     .month(month)
@@ -42,9 +109,9 @@ const calculateWeeks = (month, year) => {
   }
   // return the difference
   return last - first + 1;
-};
+}
 
-const changeMonth = (state, payload) => {
+function changeMonth(state, payload) {
   // create moment instance that is updated based on the payload either 1 or -1
   const updated = moment()
     .year(state.viewing.year)
@@ -64,4 +131,4 @@ const changeMonth = (state, payload) => {
       weeks: calculateWeeks(month, year)
     }
   };
-};
+}
